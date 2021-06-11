@@ -4,6 +4,7 @@ import helpers.ObjectToJSONMapper;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import records.ProgrammingMeetup;
+import records.USMeetup;
 
 import java.util.HashMap;
 
@@ -19,7 +20,12 @@ public class ProgrammingMeetupFilter {
     }
 
     public void apply(HashMap<String, Object> meetupMap) {
-        ProgrammingMeetup meetup = new ProgrammingMeetup(meetupMap);
+        ProgrammingMeetup meetup;
+        try {
+            meetup = new ProgrammingMeetup(meetupMap);
+        } catch (NullPointerException e) {
+            return;
+        }
 
         if (!meetup.isProgramming()) return;
 

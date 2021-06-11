@@ -19,7 +19,12 @@ public class USMeetupFilter {
     }
 
     public void apply(HashMap<String, Object> meetupMap) {
-        USMeetup meetup = new USMeetup(meetupMap);
+        USMeetup meetup;
+        try {
+            meetup = new USMeetup(meetupMap);
+        } catch (NullPointerException e) {
+            return;
+        }
 
         if (!meetup.isUS()) return;
 

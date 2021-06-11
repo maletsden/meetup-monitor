@@ -71,7 +71,7 @@ public class MeetupMonitor {
         JavaPairDStream<Long, String> windowedStream =
                 stream
                         .mapToPair(record -> new Tuple2<>(record.timestamp(), record.value()))
-                        .window(Durations.seconds(20), Durations.seconds(20));
+                        .window(Durations.minutes(1), Durations.minutes(1));
 
         windowedStream.foreachRDD(rdd -> {
             if (rdd.isEmpty()) return;
