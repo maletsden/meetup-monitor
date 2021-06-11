@@ -29,7 +29,7 @@ public class MeetupMonitor {
         if (args.length < 3) {
             System.out.println(
                     "Usage: MeetupMonitor <brokers> <inputTopic> <outputTopics> \n" +
-                    "<brokers> is a list of one or more Kafka topics to consume from\n" +
+                    "<brokers> is a list of one or more Kafka brokers to consume from\n" +
                     "<inputTopic> is the name of input Kafka topic for reading all meetups\n" +
                     "<outputTopics> is a comma-separated list of output Kafka topics\n"
             );

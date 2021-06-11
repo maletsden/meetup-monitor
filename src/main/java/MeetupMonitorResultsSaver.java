@@ -16,7 +16,7 @@ public class MeetupMonitorResultsSaver {
         if (args.length < 3) {
             System.out.println(
                     "Usage: MeetupMonitor <brokers> <inputTopics> <bucketName> \n" +
-                            "<brokers> is a list of one or more Kafka topics to consume from\n" +
+                            "<brokers> is a list of one or more Kafka brokers to consume from\n" +
                             "<inputTopics> is a comma-separated list of input Kafka topics\n" +
                             "<bucketName> is a name of GCS bucket, where results will be saved\n"
             );
@@ -52,6 +52,7 @@ public class MeetupMonitorResultsSaver {
                     .trigger(Trigger.ProcessingTime(10, TimeUnit.MINUTES))
                     .outputMode("append")
                     .option("path", String.format("%s/results/%s", bucketName, kafkaTopic))
+                    .option("checkpointLocation", String.format("checks-%s", kafkaTopic))
                     .start();
 
             queries.add(query);
